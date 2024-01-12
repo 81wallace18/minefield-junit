@@ -3,6 +3,8 @@ package br.com.wallace.mf.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.wallace.mf.exceptions.ExplosionException;
+
 public class Field {
 	
 	private final int line;
@@ -20,7 +22,7 @@ public class Field {
 		this.column = column;
 	}
 	
-	boolean addNeighbors(Field neighbor) {
+	public boolean addNeighbors(Field neighbor) {
 		boolean lineDifferent = line != neighbor.line;
 		boolean columnDifferent = column != neighbor.column;
 		boolean diagonal = lineDifferent && columnDifferent;
@@ -38,5 +40,31 @@ public class Field {
 		} else {
 			return false;
 		}
+	}
+	
+	public void toggleMarking() {
+		if(!opened) {
+			marked = !marked;
+		}
+	}
+	
+	public boolean open() {
+		if(!opened && !marked) {
+			opened = true;
+			
+			if(undermine) {
+				throw new ExplosionException();
+			}
+			if(neighborhoodSafe()) {
+				neighbors.forEach(v -> v.open());
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean neighborhoodSafe() {
+		return neighbors.stream().noneMatch(n -> n.undermine);
 	}
 }

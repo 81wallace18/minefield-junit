@@ -19,4 +19,24 @@ public class Field {
 		this.line = line;
 		this.column = column;
 	}
+	
+	boolean addNeighbors(Field neighbor) {
+		boolean lineDifferent = line != neighbor.line;
+		boolean columnDifferent = column != neighbor.column;
+		boolean diagonal = lineDifferent && columnDifferent;
+		
+		int deltaLine = Math.abs(line - neighbor.line);
+		int deltaColumn = Math.abs(column - neighbor.column);
+		int deltaGeneral = deltaColumn + deltaLine;
+		
+		if(deltaGeneral == 1 && !diagonal) {
+			neighbors.add(neighbor);
+			return true;
+		} else if (deltaGeneral == 2 && diagonal) {
+			neighbors.add(neighbor); 
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

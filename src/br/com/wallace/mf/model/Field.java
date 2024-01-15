@@ -67,4 +67,19 @@ public class Field {
 	public boolean neighborhoodSafe() {
 		return neighbors.stream().noneMatch(n -> n.undermine);
 	}
+	
+	public boolean isMarked() {
+		return marked;
+	}
+	
+	public void undermine() {
+		undermine = true;
+	}
+	
+	public boolean isOpened() {
+		return opened;
+	}
+	public boolean isClosed() {
+		return !isOpened();
+	}
 }

@@ -82,4 +82,42 @@ public class Field {
 	public boolean isClosed() {
 		return !isOpened();
 	}
+
+	public int getLine() {
+		return line;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+	
+	public boolean objectiveAchieved() {
+		boolean unraveledVariable = !undermine && opened;
+		boolean protectedVariable = undermine && marked;
+		return unraveledVariable && protectedVariable;
+	}
+	
+	public long minesInTheNeighborhood() {
+		return neighbors.stream().filter(n -> n.undermine).count();
+	}
+	
+	public void restart() {
+		opened = false;
+		undermine = false;
+		marked = false;
+	}
+	
+	public String toString() {
+		if(marked) {
+			return "x";
+		} else if(opened && undermine) {
+			return "*";
+		} else if(opened && minesInTheNeighborhood() > 0) {
+			return Long.toString(minesInTheNeighborhood());
+		} else if(opened) {
+			return " ";
+		} else {
+			return "?";
+		}
+	}
 }

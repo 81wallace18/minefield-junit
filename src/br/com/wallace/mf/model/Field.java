@@ -83,6 +83,11 @@ public class Field {
 	public boolean isOpened() {
 		return opened;
 	}
+	
+	void setOpened(boolean opened) {
+		this.opened = opened;
+	}
+	
 	public boolean isClosed() {
 		return !isOpened();
 	}

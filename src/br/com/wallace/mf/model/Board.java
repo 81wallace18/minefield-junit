@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import br.com.wallace.mf.exceptions.ExplosionException;
+
 public class Board {
 	private int lines;
 	private int columns;
@@ -22,10 +24,15 @@ public class Board {
 	}
 	
 	public void open(int line, int column) {
-		fields.parallelStream()
-		.filter(c -> c.getLine() == line && c.getColumn() == column)
-		.findFirst()
-		.ifPresent(c -> c.open());;
+		try {
+			fields.parallelStream()
+				.filter(c -> c.getLine() == line && c.getColumn() == column)
+				.findFirst()
+				.ifPresent(c -> c.open());;
+		} catch (ExplosionException e) {
+			fields.forEach(c -> c.setOpened(true));
+			throw e;
+		}
 	}
 	
 	public void toggleMarking(int line, int column) {

@@ -63,6 +63,7 @@ public class BoardConsole {
 
 			System.out.println("You wins!!");
 		} catch (ExplosionException e) {
+			System.out.println(board);
 			System.out.println("You lose!");
 		}
 	}

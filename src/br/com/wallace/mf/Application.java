@@ -1,6 +1,7 @@
 package br.com.wallace.mf;
 
 import br.com.wallace.mf.model.Board;
+import br.com.wallace.mf.vision.BoardConsole;
 
 public class Application {
 
@@ -9,10 +10,6 @@ public class Application {
 		
 		Board board = new Board(6, 6, 6);
 		
-		board.toggleMarking(4, 4);
-		board.toggleMarking(4, 5);
-		board.open(3, 3);
-		
-		System.out.println(board);
+		new BoardConsole(board);
 	}
 }

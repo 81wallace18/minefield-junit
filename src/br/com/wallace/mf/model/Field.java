@@ -100,10 +100,10 @@ public class Field {
 		return column;
 	}
 	
-	public boolean objectiveAchieved() {
+	boolean objectiveAchieved() {
 		boolean unraveledVariable = !undermine && opened;
 		boolean protectedVariable = undermine && marked;
-		return unraveledVariable && protectedVariable;
+		return protectedVariable || unraveledVariable;
 	}
 	
 	public long minesInTheNeighborhood() {

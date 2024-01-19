@@ -63,12 +63,12 @@ public class Board {
 		long minesArmed = 0;
 		Predicate<Field> undermine = c -> c.isUndermine();
 		do {
-			minesArmed = fields.stream().filter(undermine).count();
 			int randomVariable = (int) (Math.random() * fields.size());
 			fields.get(randomVariable).undermine();;
+			minesArmed = fields.stream().filter(undermine).count();
 		} while(minesArmed < mines);
 	}
-	
+
 	public boolean objectiveAchieved() {
 		return fields.stream().allMatch(c -> c.objectiveAchieved());
 	}
@@ -81,9 +81,18 @@ public class Board {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("  ");
+		for (int c = 0; c < columns; c++) {
+			sb.append(" ");
+			sb.append(c);
+			sb.append(" ");
+		}
+		sb.append("\n");
 		
 		int i = 0;
 		for (int l = 0; l < lines; l++) {
+			sb.append(l);
+			sb.append(" ");
 			for (int c = 0; c < columns; c++) {
 				sb.append(" ");
 				sb.append(fields.get(i));

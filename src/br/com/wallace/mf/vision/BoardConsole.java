@@ -54,13 +54,14 @@ public class BoardConsole {
 
 				digitated = captureTypedValue("1 - Open or 2 - (Un)Mark: ");
 
-				if ("1".equalsIgnoreCase(digitated)) {
+				if ("1".equals(digitated)) {
 					board.open(xy.next(), xy.next());
-				} else if ("2".equalsIgnoreCase(digitated)) {
+				} else if ("2".equals(digitated)) {
 					board.toggleMarking(xy.next(), xy.next());
 				}
 			}
-
+			
+			System.out.println(board);
 			System.out.println("You wins!!");
 		} catch (ExplosionException e) {
 			System.out.println(board);

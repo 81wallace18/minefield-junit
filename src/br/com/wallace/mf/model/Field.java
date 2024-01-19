@@ -76,6 +76,10 @@ public class Field {
 		undermine = true;
 	}
 	
+	public boolean isUndermine() {
+		return undermine;
+	}
+	
 	public boolean isOpened() {
 		return opened;
 	}

@@ -1,8 +1,8 @@
 package br.com.wallace.mf.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Board {
 	private int lines;
@@ -40,6 +40,20 @@ public class Board {
 	}
 	
 	private void drawMines() {
-		
+		long minesArmed = 0;
+		Predicate<Field> undermine = c -> c.isUndermine();
+		do {
+			minesArmed = fields.stream().filter(undermine).count();
+			int randomVariable = (int) (Math.random() * fields.size());
+			fields.get(randomVariable).undermine();;
+		} while(minesArmed < mines);
+	}
+	
+	public boolean objectiveAchieved() {
+		return fields.stream().allMatch(c -> c.objectiveAchieved());
+	}
+	
+	public void restart() {
+		fields.stream().forEach(c -> c.restart());
 	}
 }

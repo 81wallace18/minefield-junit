@@ -19,9 +19,22 @@ public class Board {
 		generateFields();
 		associateNeighbors();
 		drawMines();
-		
 	}
-
+	
+	public void open(int line, int column) {
+		fields.parallelStream()
+		.filter(c -> c.getLine() == line && c.getColumn() == column)
+		.findFirst()
+		.ifPresent(c -> c.open());;
+	}
+	
+	public void toggleMarking(int line, int column) {
+		fields.parallelStream()
+		.filter(c -> c.getLine() == line && c.getColumn() == column)
+		.findFirst()
+		.ifPresent(c -> c.toggleMarking());;
+	}
+	
 	private void generateFields() {
 		for (int l = 0; l < lines; l++) {
 			for (int c = 0; c < columns; c++) {
@@ -55,5 +68,24 @@ public class Board {
 	
 	public void restart() {
 		fields.stream().forEach(c -> c.restart());
+		drawMines();
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		
+		int i = 0;
+		for (int l = 0; l < lines; l++) {
+			for (int c = 0; c < columns; c++) {
+				sb.append(" ");
+				sb.append(fields.get(i));
+				sb.append(" ");
+				i++;
+			}
+			sb.append("\n");
+		}
+		
+		return sb.toString();
 	}
 }
